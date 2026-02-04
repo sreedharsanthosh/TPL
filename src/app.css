@@ -1,0 +1,39 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Import Inter Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+/* Dark mode preference (optional, defaulting to light/neutral for now but prep for dark) */
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-slate-950 text-slate-50;
+  }
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Sports Theme Utilities */
+.text-brand {
+    @apply text-emerald-600 dark:text-emerald-400;
+}
+
+.bg-brand {
+    @apply bg-emerald-600 text-white;
+}
+
+.card {
+    @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-sm;
+}

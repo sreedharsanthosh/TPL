@@ -1,4 +1,5 @@
 import { supabase } from '$lib/supabase';
+import { supabaseAdmin } from '$lib/server/supabase';
 import { fail } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 
@@ -33,6 +34,19 @@ export const actions: Actions = {
       .from('players')
       .update({ goals })
       .eq('id', id);
+
+    if (error) {
+      return fail(500, { error: error.message });
+    }
+
+    return { success: true };
+  },
+
+  delete: async ({ request }) => {
+    const formData = await request.formData();
+    const id = formData.get('id');
+
+    const { error } = await supabaseAdmin.from('players').delete().eq('id', id);
 
     if (error) {
       return fail(500, { error: error.message });

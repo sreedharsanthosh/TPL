@@ -1,4 +1,5 @@
 import { supabase } from '$lib/supabase';
+import { supabaseAdmin } from '$lib/server/supabase';
 import { fail } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 
@@ -170,22 +171,32 @@ export const actions: Actions = {
     const formData = await request.formData();
     const id = formData.get('id');
 
+    console.log('Attempting to delete match:', id);
+
     // To handle deletion correctly (e.g. if deleting a completed match),
     // we should fetch the team IDs first to recalc their stats after deletion.
-    const { data: match } = await supabase
+    const { data: match, error: fetchError } = await supabase
       .from('matches')
       .select('home_team_id, away_team_id, status')
       .eq('id', id)
       .single();
 
-    const { error } = await supabase.from('matches').delete().eq('id', id);
+    if (fetchError) {
+        console.error('Error fetching match for deletion:', fetchError);
+    }
+
+    const { error } = await supabaseAdmin.from('matches').delete().eq('id', id);
 
     if (error) {
+      console.error('Error deleting match:', error);
       return fail(500, { error: error.message });
     }
 
+    console.log('Match deleted successfully');
+
     // Recalculate if we deleted a completed match
     if (match && match.status === 'completed') {
+       console.log('Recalculating stats for teams:', match.home_team_id, match.away_team_id);
        await recalculateTeamStats(match.home_team_id);
        await recalculateTeamStats(match.away_team_id);
     }

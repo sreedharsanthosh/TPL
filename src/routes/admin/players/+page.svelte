@@ -1,6 +1,6 @@
 <script lang="ts">
     import { enhance } from "$app/forms";
-    import { Search, Save, User } from "lucide-svelte";
+    import { Search, Save, User, Trash2 } from "lucide-svelte";
 
     export let data;
 
@@ -117,13 +117,31 @@
                                             <Save class="w-4 h-4" />
                                         </button>
                                     </form>
-                                </td>
-                                <td
-                                    class="px-6 py-4 text-right text-xs text-slate-400"
-                                >
-                                    ID: {player.id.substring(0, 8)}...
-                                </td>
-                            </tr>
+                                    <form
+                                        method="POST"
+                                        action="?/delete"
+                                        use:enhance
+                                        class="inline-block"
+                                    >
+                                        <input
+                                            type="hidden"
+                                            name="id"
+                                            value={player.id}
+                                        />
+                                        <button
+                                            type="submit"
+                                            class="text-slate-400 hover:text-rose-600 transition-colors p-2"
+                                            title="Delete Player"
+                                            on:click={(e) =>
+                                                !confirm(
+                                                    "Are you sure you want to delete this player?",
+                                                ) && e.preventDefault()}
+                                        >
+                                            <Trash2 class="w-4 h-4" />
+                                        </button>
+                                    </form>
+                                </td></tr
+                            >
                         {/each}
                     {/if}
                 </tbody>

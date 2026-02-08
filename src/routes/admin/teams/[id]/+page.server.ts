@@ -1,4 +1,5 @@
 import { supabase } from '$lib/supabase';
+import { supabaseAdmin } from '$lib/server/supabase';
 import { fail } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
 
@@ -76,15 +77,19 @@ export const actions: Actions = {
     const formData = await request.formData();
     const id = formData.get('id');
 
-    const { error } = await supabase
+    console.log('Attempting to delete player with ID:', id);
+
+    const { error } = await supabaseAdmin
       .from('players')
       .delete()
       .eq('id', id);
 
     if (error) {
+      console.error('Error deleting player:', error);
       return fail(500, { error: error.message });
     }
 
+    console.log('Player deleted successfully');
     return { success: true };
   }
 };

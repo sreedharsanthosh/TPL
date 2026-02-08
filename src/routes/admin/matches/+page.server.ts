@@ -66,6 +66,7 @@ async function recalculateTeamStats(team_id: string) {
   });
 
   // 3. Calculate derived stats
+  // Logic: Win = 3 pts, Draw = 1 pt, Loss = 0 pts (No negative points)
   const goal_difference = gf - ga;
   const points = (wins * 3) + (draws * 1);
 

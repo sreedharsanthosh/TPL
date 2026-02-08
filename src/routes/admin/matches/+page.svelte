@@ -253,7 +253,7 @@
                                 >{formatDate(match.match_date)}</span
                             >
                             <span
-                                class={`text-[10px] uppercase font-bold px-2 py-0.5 rounded tracking-wide ${match.stage === "Final" ? "bg-amber-100 text-amber-700" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}
+                                class={`text-xs uppercase font-bold px-3 py-1 rounded-full tracking-wide ${match.stage === "Final" ? "bg-amber-100 text-amber-700 border border-amber-200" : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700"}`}
                                 >{match.stage}</span
                             >
                         </div>

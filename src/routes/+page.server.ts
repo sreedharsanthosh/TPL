@@ -20,8 +20,7 @@ export const load: PageServerLoad = async () => {
     .from('teams')
     .select('*')
     .order('points', { ascending: false })
-    .order('goal_difference', { ascending: false })
-    .limit(4);
+    .order('goal_difference', { ascending: false });
 
   return {
     nextMatch: nextMatchData,

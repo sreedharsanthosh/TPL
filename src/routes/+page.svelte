@@ -163,7 +163,6 @@
   </section>
 {/if}
 
-<!-- Standings Preview -->
 <section class="py-16 bg-slate-50 dark:bg-slate-900/50">
   <div class="container-custom">
     <div class="flex items-center justify-between mb-8">
@@ -180,58 +179,112 @@
       </a>
     </div>
 
-    <div class="card overflow-hidden">
-      <table class="w-full text-left text-sm">
-        <thead
-          class="bg-slate-100 dark:bg-slate-800 text-xs uppercase text-slate-500 font-bold"
-        >
-          <tr>
-            <th class="px-6 py-4">Pos</th>
-            <th class="px-6 py-4">Team</th>
-            <th class="px-6 py-4 text-center">P</th>
-            <th class="px-6 py-4 text-center">GD</th>
-            <th class="px-6 py-4 text-center">Pts</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-          {#each standings.slice(0, 5) as team, i}
-            <tr
-              class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Pool A -->
+      <div>
+        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 px-2 border-l-4 border-emerald-500">Pool A</h3>
+        <div class="card overflow-hidden">
+          <table class="w-full text-left text-sm">
+            <thead
+              class="bg-slate-100 dark:bg-slate-800 text-xs uppercase text-slate-500 font-bold"
             >
-              <td class="px-6 py-4 font-bold text-slate-400">#{i + 1}</td>
-              <td
-                class="px-6 py-4 font-bold text-slate-900 dark:text-white flex items-center"
-              >
-                <div
-                  class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 mr-3 overflow-hidden flex items-center justify-center"
+              <tr>
+                <th class="px-4 py-3">Pos</th>
+                <th class="px-4 py-3">Team</th>
+                <th class="px-4 py-3 text-center">Pts</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              {#each standings.filter(t => t.pool === 'A').slice(0, 5) as team, i}
+                <tr
+                  class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                 >
-                  {#if team.logo_url}
-                    <img
-                      src={team.logo_url}
-                      alt={team.name}
-                      class="w-full h-full object-cover"
-                    />
-                  {:else}
-                    <Shield class="w-4 h-4 text-slate-400" />
-                  {/if}
-                </div>
-                {team.name}
-              </td>
-              <td
-                class="px-6 py-4 text-center text-slate-600 dark:text-slate-400"
-                >{team.played}</td
-              >
-              <td
-                class="px-6 py-4 text-center text-slate-600 dark:text-slate-400"
-                >{team.goal_difference}</td
-              >
-              <td class="px-6 py-4 text-center font-bold text-emerald-600"
-                >{team.points}</td
-              >
-            </tr>
-          {/each}
-        </tbody>
-      </table>
+                  <td class="px-4 py-3 font-bold text-slate-400">#{i + 1}</td>
+                  <td
+                    class="px-4 py-3 font-bold text-slate-900 dark:text-white flex items-center"
+                  >
+                    <div
+                      class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 mr-2 overflow-hidden flex items-center justify-center"
+                    >
+                      {#if team.logo_url}
+                        <img
+                          src={team.logo_url}
+                          alt={team.name}
+                          class="w-full h-full object-cover"
+                        />
+                      {:else}
+                        <Trophy class="w-3 h-3 text-slate-400" />
+                      {/if}
+                    </div>
+                    {team.name}
+                  </td>
+                  <td class="px-4 py-3 text-center font-bold text-emerald-600"
+                    >{team.points}</td
+                  >
+                </tr>
+              {/each}
+              {#if standings.filter(t => t.pool === 'A').length === 0}
+                <tr>
+                    <td colspan="3" class="px-4 py-8 text-center text-slate-500">No teams in Pool A</td>
+                </tr>
+              {/if}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Pool B -->
+      <div>
+        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 px-2 border-l-4 border-emerald-500">Pool B</h3>
+        <div class="card overflow-hidden">
+          <table class="w-full text-left text-sm">
+            <thead
+              class="bg-slate-100 dark:bg-slate-800 text-xs uppercase text-slate-500 font-bold"
+            >
+              <tr>
+                <th class="px-4 py-3">Pos</th>
+                <th class="px-4 py-3">Team</th>
+                <th class="px-4 py-3 text-center">Pts</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+              {#each standings.filter(t => t.pool === 'B').slice(0, 5) as team, i}
+                <tr
+                  class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                >
+                  <td class="px-4 py-3 font-bold text-slate-400">#{i + 1}</td>
+                  <td
+                    class="px-4 py-3 font-bold text-slate-900 dark:text-white flex items-center"
+                  >
+                    <div
+                      class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-700 mr-2 overflow-hidden flex items-center justify-center"
+                    >
+                      {#if team.logo_url}
+                        <img
+                          src={team.logo_url}
+                          alt={team.name}
+                          class="w-full h-full object-cover"
+                        />
+                      {:else}
+                        <Trophy class="w-3 h-3 text-slate-400" />
+                      {/if}
+                    </div>
+                    {team.name}
+                  </td>
+                  <td class="px-4 py-3 text-center font-bold text-emerald-600"
+                    >{team.points}</td
+                  >
+                </tr>
+              {/each}
+              {#if standings.filter(t => t.pool === 'B').length === 0}
+                <tr>
+                    <td colspan="3" class="px-4 py-8 text-center text-slate-500">No teams in Pool B</td>
+                </tr>
+              {/if}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
 </section>

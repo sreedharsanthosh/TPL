@@ -109,20 +109,23 @@
             <div
               class="text-sm font-bold text-emerald-600 uppercase tracking-widest mb-2"
             >
-              {new Date(nextMatch.match_date).toLocaleDateString(undefined, {
+              {new Date(nextMatch.match_date).toLocaleDateString("en-IN", {
+                timeZone: "Asia/Kolkata",
                 weekday: "long",
               })}
             </div>
             <div
               class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white mb-2"
             >
-              {new Date(nextMatch.match_date).toLocaleTimeString(undefined, {
+              {new Date(nextMatch.match_date).toLocaleTimeString("en-IN", {
+                timeZone: "Asia/Kolkata",
                 hour: "2-digit",
                 minute: "2-digit",
               })}
             </div>
             <div class="text-slate-500 font-medium mb-4">
-              {new Date(nextMatch.match_date).toLocaleDateString(undefined, {
+              {new Date(nextMatch.match_date).toLocaleDateString("en-IN", {
+                timeZone: "Asia/Kolkata",
                 day: "numeric",
                 month: "long",
               })}
@@ -182,7 +185,11 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <!-- Pool A -->
       <div>
-        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 px-2 border-l-4 border-emerald-500">Pool A</h3>
+        <h3
+          class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 px-2 border-l-4 border-emerald-500"
+        >
+          Pool A
+        </h3>
         <div class="card overflow-hidden">
           <table class="w-full text-left text-sm">
             <thead
@@ -195,7 +202,9 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-              {#each standings.filter(t => t.pool === 'A').slice(0, 5) as team, i}
+              {#each standings
+                .filter((t) => t.pool === "A")
+                .slice(0, 5) as team, i}
                 <tr
                   class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                 >
@@ -223,9 +232,11 @@
                   >
                 </tr>
               {/each}
-              {#if standings.filter(t => t.pool === 'A').length === 0}
+              {#if standings.filter((t) => t.pool === "A").length === 0}
                 <tr>
-                    <td colspan="3" class="px-4 py-8 text-center text-slate-500">No teams in Pool A</td>
+                  <td colspan="3" class="px-4 py-8 text-center text-slate-500"
+                    >No teams in Pool A</td
+                  >
                 </tr>
               {/if}
             </tbody>
@@ -235,7 +246,11 @@
 
       <!-- Pool B -->
       <div>
-        <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 px-2 border-l-4 border-emerald-500">Pool B</h3>
+        <h3
+          class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-4 px-2 border-l-4 border-emerald-500"
+        >
+          Pool B
+        </h3>
         <div class="card overflow-hidden">
           <table class="w-full text-left text-sm">
             <thead
@@ -248,7 +263,9 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
-              {#each standings.filter(t => t.pool === 'B').slice(0, 5) as team, i}
+              {#each standings
+                .filter((t) => t.pool === "B")
+                .slice(0, 5) as team, i}
                 <tr
                   class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
                 >
@@ -276,9 +293,11 @@
                   >
                 </tr>
               {/each}
-              {#if standings.filter(t => t.pool === 'B').length === 0}
+              {#if standings.filter((t) => t.pool === "B").length === 0}
                 <tr>
-                    <td colspan="3" class="px-4 py-8 text-center text-slate-500">No teams in Pool B</td>
+                  <td colspan="3" class="px-4 py-8 text-center text-slate-500"
+                    >No teams in Pool B</td
+                  >
                 </tr>
               {/if}
             </tbody>

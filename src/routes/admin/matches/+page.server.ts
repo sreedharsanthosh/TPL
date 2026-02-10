@@ -106,7 +106,8 @@ export const actions: Actions = {
        return fail(400, { error: 'Home and Away teams must be different' });
     }
 
-    const match_date = new Date(`${date}T${time}`).toISOString();
+    // Construct date string with IST offset
+    const match_date = new Date(`${date}T${time}:00+05:30`).toISOString();
 
     const { error } = await supabase
       .from('matches')

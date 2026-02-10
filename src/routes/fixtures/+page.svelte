@@ -3,7 +3,8 @@
     export let data;
 
     function formatDate(dateString: string) {
-        return new Date(dateString).toLocaleDateString(undefined, {
+        return new Date(dateString).toLocaleDateString("en-IN", {
+            timeZone: "Asia/Kolkata",
             weekday: "short",
             month: "short",
             day: "numeric",
@@ -11,19 +12,23 @@
     }
 
     function formatTime(dateString: string) {
-        return new Date(dateString).toLocaleTimeString(undefined, {
+        return new Date(dateString).toLocaleTimeString("en-IN", {
+            timeZone: "Asia/Kolkata",
             hour: "2-digit",
             minute: "2-digit",
         });
     }
 
     // Group matches by date
-    const matchesByDate = data.matches.reduce((acc: any, match: any) => {
-        const date = formatDate(match.match_date);
-        if (!acc[date]) acc[date] = [];
-        acc[date].push(match);
-        return acc;
-    }, {});
+    const matchesByDate = data.matches.reduce(
+        (acc: Record<string, any[]>, match: any) => {
+            const date = formatDate(match.match_date);
+            if (!acc[date]) acc[date] = [];
+            acc[date].push(match);
+            return acc;
+        },
+        {},
+    );
 </script>
 
 <svelte:head>
